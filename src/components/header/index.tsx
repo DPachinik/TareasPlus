@@ -1,7 +1,10 @@
 import Link from 'next/link'
 import styles from './header.module.css'
+import {useSession, signIn, signOut } from 'next-auth/react'
 
 export function Header(){
+
+    const {data: sesion, status} = useSession();
     return(
         <header className={styles.header}>
             <section className={styles.content}>
@@ -13,13 +16,23 @@ export function Header(){
                         
                     </Link>
 
-                    <Link href='/dashboard' className={styles.link}>
-                        Mi panel
-                    </Link>
+                    { sesion?.user && (
+                        <Link href='/dashboard' className={styles.link}>
+                            Mi panel
+                        </Link>
+                    )}
 
                 </nav>
 
-                <button className={styles.loginButton}>Acceder</button>
+                {status === 'loading'?(
+                <></>
+                ) : sesion?(
+                    <button className={styles.loginButton} onClick={()=>signOut()}> 
+                    Hola,{sesion?.user?.name}</button>)
+                :(
+                    <button className={styles.loginButton} onClick={()=>signIn('google')}> 
+                    Acceder</button>
+                )}
             </section>
         </header>
     );
