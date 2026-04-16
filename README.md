@@ -1,40 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# 🚀 Tareas Plus
 
-## Getting Started
+Aplicación web para la gestión de tareas construida con **Next.js**, que permite a los usuarios crear, compartir y comentar tareas en tiempo real.
 
-First, run the development server:
+## 🌐 Demo
+👉 https://tareas-plus.vercel.app
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📌 Características
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- 🔐 Autenticación con Google (NextAuth)
+- 📝 Crear, listar y eliminar tareas
+- 🌍 Tareas públicas y privadas
+- 🔗 Compartir tareas mediante enlace
+- 💬 Sistema de comentarios por tarea
+- ⚡ Actualización en tiempo real con Firebase
+- 📊 Conteo de tareas y comentarios en la home (SSG + ISR)
+- 🛡️ Rutas protegidas con sesión
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+---
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+## 🛠️ Tecnologías utilizadas
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Next.js** (Pages Router)
+- **TypeScript**
+- **NextAuth.js** (autenticación)
+- **Firebase Firestore** (base de datos)
+- **Vercel** (deploy)
+- **React Icons**
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📂 Estructura del proyecto
+pages/
+│
+├── index.tsx # Home (SSG + métricas)
+├── dashboard/ # Panel privado del usuario
+├── task/[id].tsx # Detalle de tarea + comentarios
+├── api/
+│ └── auth/[...nextauth].ts # Configuración de NextAuth
+│
+components/
+├── header/ # Navbar con autenticación
+├── textarea/ # Componente reutilizable
+│
+services/
+└── firebaseConnection.ts # Configuración de Firebase
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+## 🔐 Autenticación
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Se implementa usando **NextAuth + Google Provider**.
 
-## Deploy on Vercel
+- Inicio de sesión con cuenta de Google
+- Manejo de sesión global con `SessionProvider`
+- Protección de rutas mediante `getServerSideProps`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+## 🧠 Renderizado
+
+El proyecto utiliza diferentes estrategias de renderizado:
+
+### 🟢 SSG + ISR (Home)
+- Se obtienen métricas de tareas y comentarios
+- Revalidación cada 60 segundos
+SR (Dashboard y Task)
+Protección de rutas con sesión
+Carga dinámica de datos por usuario o tarea
+
+📸 Funcionalidades principales
+🧾 Dashboard
+Crear tareas
+Marcar como públicas
+Eliminar tareas
+Compartir enlaces
+
+📄 Detalle de tarea
+Ver contenido
+Agregar comentarios
+Eliminar comentarios propios
+
+📌 Notas técnicas
+Uso de onSnapshot para tiempo real en tareas
+Uso de getDocs para renderizado SSR/SSG
+Manejo de sesión con useSession
+Uso de rutas dinámicas (task/[id])
+🧑‍💻 Autor
+
+Desarrollado por David Pachinik
