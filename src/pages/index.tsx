@@ -2,9 +2,16 @@ import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import Image from "next/image";
 import heroImg from '../../public/assets/header.png'
+import { GetStaticProps } from "next";
+import { db } from "@/services/firebaseConnection";
+import { collection, getDocs } from "firebase/firestore";
 
+interface HomeProps{
+  posts:number;
+  comments:number;
+}
 
-export default function Home() {
+export default function Home({posts, comments}:HomeProps) {
   return (
     <div className={styles.container}>
       <Head>
@@ -22,18 +29,18 @@ export default function Home() {
         </div>
 
         <h1 className={styles.title}>
-          Sistema moderno para organizar <br/>
-          tus estudios y tareas
+          Organiza tus estudios y <br/>
+          Simplifica tus tareas
         </h1>
 
         <div className={styles.infoContent}>
 
           <section className={styles.box}>
-            <span>+150post</span>
+            <span>+{posts} post</span>
           </section>
 
           <section className={styles.box}>
-            <span>+80 comentarios</span>
+            <span>+{comments} comentarios</span>
           </section>
 
         </div>
@@ -41,4 +48,21 @@ export default function Home() {
       </main>
     </div>
   );
+}
+
+export const getStaticProps: GetStaticProps = async ()=>{
+
+  const taskRef = collection(db, 'tareas');
+  const tasks = await getDocs(taskRef);
+  
+  const commentsRef = collection(db, 'comments')
+  const comments = await getDocs(commentsRef);
+
+  return{
+    props:{
+      posts:tasks.size || 0,
+      comments:comments.size ||0,
+    },
+    revalidate: 60,
+  }
 }
