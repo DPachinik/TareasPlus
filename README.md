@@ -2,6 +2,8 @@
 
 Aplicación web para la gestión de tareas construida con **Next.js**, que permite a los usuarios crear, compartir y comentar tareas en tiempo real.
 
+---
+
 ## 🌐 Demo
 👉 https://tareas-plus.vercel.app
 
@@ -31,23 +33,6 @@ Aplicación web para la gestión de tareas construida con **Next.js**, que permi
 
 ---
 
-## 📂 Estructura del proyecto
-pages/
-│
-├── index.tsx # Home (SSG + métricas)
-├── dashboard/ # Panel privado del usuario
-├── task/[id].tsx # Detalle de tarea + comentarios
-├── api/
-│ └── auth/[...nextauth].ts # Configuración de NextAuth
-│
-components/
-├── header/ # Navbar con autenticación
-├── textarea/ # Componente reutilizable
-│
-services/
-└── firebaseConnection.ts # Configuración de Firebase
----
-
 ## 🔐 Autenticación
 
 Se implementa usando **NextAuth + Google Provider**.
@@ -65,27 +50,38 @@ El proyecto utiliza diferentes estrategias de renderizado:
 ### 🟢 SSG + ISR (Home)
 - Se obtienen métricas de tareas y comentarios
 - Revalidación cada 60 segundos
-SR (Dashboard y Task)
-Protección de rutas con sesión
-Carga dinámica de datos por usuario o tarea
 
-📸 Funcionalidades principales
-🧾 Dashboard
-Crear tareas
-Marcar como públicas
-Eliminar tareas
-Compartir enlaces
+### 🔵 SSR (Dashboard y Task)
+- Protección de rutas con sesión
+- Carga dinámica de datos por usuario o tarea
 
-📄 Detalle de tarea
-Ver contenido
-Agregar comentarios
-Eliminar comentarios propios
+---
 
-📌 Notas técnicas
-Uso de onSnapshot para tiempo real en tareas
-Uso de getDocs para renderizado SSR/SSG
-Manejo de sesión con useSession
-Uso de rutas dinámicas (task/[id])
-🧑‍💻 Autor
+## 📸 Funcionalidades principales
 
-Desarrollado por David Pachinik
+### 🧾 Dashboard
+- Crear tareas  
+- Marcar como públicas  
+- Eliminar tareas  
+- Compartir enlaces  
+
+### 📄 Detalle de tarea
+- Ver contenido  
+- Agregar comentarios  
+- Eliminar comentarios propios  
+
+---
+
+## 📌 Notas técnicas
+
+- Uso de `onSnapshot` para tiempo real en tareas  
+- Uso de `getDocs` para renderizado SSR/SSG  
+- Manejo de sesión con `useSession`  
+- Uso de rutas dinámicas (`task/[id]`)  
+
+---
+
+## 🧑‍💻 Autor
+
+Desarrollado por **David Pachinik**
+
